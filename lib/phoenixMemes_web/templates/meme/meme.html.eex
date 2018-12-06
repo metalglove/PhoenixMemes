@@ -1,23 +1,10 @@
-<p>Id: <%= @memer.memeId %></p>
-<p>Title: <%= @memer.title %></p>
-<p>PageUrl: <%= @memer.pageUrl %></p>
-<p>imageUrl: <%= @memer.imageUrl %></p>
-<p>videoUrl: <%= @memer.videoUrl %></p>
-
-<%# PhoenixMemes.Repo.insert(%PhoenixMemes.Meme
-    {
-        memeId: "a0Qdpnq", 
-        title: "Not the soldier we deserved, but the clown we needed", 
-        imageUrl: "https://images-cdn.9gag.com/photo/a0Qdpnq_700b.jpg",
-        pageUrl: "http://9gag.com/gag/a0Qdpnq",
-        videoUrl: "http://img-9gag-fun.9cache.com/photo/a0Qdpnq_460sv.mp4"
-    }) 
-
-    memes: Repo.all(from meme in Meme, select: %{
-      :memeId => meme.memeId, 
-      :title => meme.title, 
-      :imageUrl => meme.imageUrl, 
-      :videoUrl => meme.videoUrl, 
-      :pageUrl => meme.pageUrl
-      })
-    %>
+<h2><%= @meme.title %></h2>
+<%= if @meme.videoUrl == nil do 
+        img_tag(@meme.imageUrl)
+    else 
+        sourcetag = safe_to_string tag(:source, [src: @meme.videoUrl, type: "video/mp4"])
+        "<video controls>" <> sourcetag <> "</video>" |> raw
+    end
+%>
+<br/>
+<%= content_tag(:a, "SOURCE", href: @meme.pageUrl) %>
