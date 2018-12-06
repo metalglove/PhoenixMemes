@@ -1,0 +1,10 @@
+hi from memes
+
+<%= for meme <- @memes do %>
+  <p>Id: <%= meme.memeId %></p>
+  <p>Title: <%= meme.title %></p>
+  <p>PageUrl: <%= meme.pageUrl %></p>
+  <p>imageUrl: <%= meme.imageUrl %></p>
+  <p>videoUrl: <%= meme.videoUrl %></p>
+  <hr>
+<% end %>
