@@ -2,10 +2,9 @@ defmodule PhoenixMemes.Meme do
   use Ecto.Schema
   import Ecto.Changeset
 
-
+  @primary_key{:id, :string, []}
   schema "memes" do
     field :imageUrl, :string
-    field :memeId, :string
     field :pageUrl, :string
     field :title, :string
     field :videoUrl, :string
@@ -16,7 +15,7 @@ defmodule PhoenixMemes.Meme do
   @doc false
   def changeset(meme, attrs) do
     meme
-    |> cast(attrs, [:memeId, :title, :imageUrl, :pageUrl, :videoUrl])
-    |> validate_required([:memeId, :title, :imageUrl, :pageUrl, :videoUrl])
+    |> cast(attrs, [:imageUrl, :pageUrl, :title, :videoUrl])
+    |> validate_required([:imageUrl, :pageUrl, :title, :videoUrl])
   end
 end

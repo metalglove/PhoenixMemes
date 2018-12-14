@@ -1,0 +1,13 @@
+<%= for meme <- @memes do %>
+  <h2><%= meme.title %></h2>
+<%= if meme.videoUrl == nil do 
+        img_tag(meme.imageUrl)
+    else 
+        sourcetag = safe_to_string tag(:source, [src: meme.videoUrl, type: "video/mp4"])
+        "<video controls>" <> sourcetag <> "</video>" |> raw
+    end
+%>
+<br/>
+<%= content_tag(:a, "SOURCE", href: meme.pageUrl) %>
+  <hr>
+<% end %>

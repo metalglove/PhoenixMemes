@@ -29,22 +29,38 @@ defmodule PhoenixMemes.MemeService do
   """
   def fetchRandomMeme do
     response = HTTPotion.get("https://9gag.com/random", follow_redirects: true)
-
+    parse_tags(response.body)
     if HTTPotion.Response.success?(response) do
       id = parse_id(response.body)
       %{
         status: :success,
         data: %{
-          memeId: id,
+          id: id,
           title: parse_title(response.body),
           pageUrl: parse_pageUrl(response.body),
           imageUrl: parse_imgUrl(response.body),
-          videoUrl: getVideoUrlIfExists(id)
+          videoUrl: getVideoUrlIfExists(id),
+          tags: parse_tags(response.body)
         }
       }
     else
       %{status: :failed, data: response}
     end
+  end
+
+  defp parse_page_data(html) do
+    testtt = Floki.parse(html)
+    html 
+    |> Floki.find("script:fl-contains('GAG.App.loadConfigs')")
+    |> hd
+  end
+
+  defp parse_tags(html) do
+    testtt = html 
+    |> Floki.find("script:fl-contains('\n    GAG.App.loadConfigs(')")
+
+    Path.expand('./text.txt') |> Path.absname |> File.write(inspect(testtt), [:write])
+    # IO.puts(tags)
   end
 
   defp parse_id(html) do
