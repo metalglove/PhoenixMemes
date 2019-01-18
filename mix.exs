@@ -43,7 +43,8 @@ defmodule PhoenixMemes.Mixfile do
       {:cowboy, "~> 1.0"},
       {:plug_cowboy, "~> 1.0"},
       {:httpotion, "~> 3.1.0"},
-      {:floki, "~> 0.20.0"}
+      {:floki, "~> 0.20.0"},
+      {:jason, "~> 1.1"}
     ]
   end
 

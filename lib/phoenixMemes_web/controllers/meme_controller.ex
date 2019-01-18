@@ -7,19 +7,12 @@ defmodule PhoenixMemesWeb.MemeController do
   Fetches a random meme, inserts it into the repo and displays it.
   """
   def meme(conn, _params) do
-    memeData = MemeService.fetchRandomMeme()
+    fetchedMeme = MemeService.fetchRandomMeme()
     
-    IO.puts("hi")
-    IO.inspect(memeData.data)
-    
+    IO.inspect(fetchedMeme.memeData)
     # Repo.insert_all(%{ tag: memeData.data.tags })
 
-    meme = case Repo.insert(%Meme{
-      id: memeData.data.id, 
-      title: memeData.data.title, 
-      imageUrl: memeData.data.imageUrl, 
-      pageUrl: memeData.data.pageUrl, 
-      videoUrl: memeData.data.videoUrl })
+    meme = case Repo.insert(fetchedMeme.memeData.meme)
       do 
         {:ok, meme} -> 
           IO.puts("success") 
@@ -27,7 +20,7 @@ defmodule PhoenixMemesWeb.MemeController do
         {:error, changeset} -> 
           IO.puts("failed")
           IO.inspect(changeset)
-          Meme|> last |> Repo.one
+          Meme |> last |> Repo.one
       end
       
     render(conn, "meme.html", meme: meme)
