@@ -20,7 +20,7 @@ defmodule PhoenixMemes.Mixfile do
   def application do
     [
       mod: {PhoenixMemes.Application, []},
-      extra_applications: [:logger, :httpotion, :floki, :runtime_tools, :timex]
+      extra_applications: [:logger, :httpotion, :floki, :runtime_tools]
     ]
   end
 
@@ -36,7 +36,6 @@ defmodule PhoenixMemes.Mixfile do
       {:phoenix, "~> 1.3.4"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
-      # {:mariaex, ">= 0.0.0"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
@@ -45,8 +44,7 @@ defmodule PhoenixMemes.Mixfile do
       {:plug_cowboy, "~> 1.0"},
       {:httpotion, "~> 3.1.0"},
       {:floki, "~> 0.20.0"},
-      {:jason, "~> 1.1"},
-      {:timex, "~> 3.1"}
+      {:jason, "~> 1.1"}
     ]
   end
 
