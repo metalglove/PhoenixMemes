@@ -48,11 +48,18 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
+# # Configure your database
+# config :phoenixMemes, PhoenixMemes.Repo,
+#   adapter: Ecto.Adapters.MySQL,
+#   username: "root",
+#   password: "",
+#   database: "phoenixmemes_dev",
+#   hostname: "localhost",
+#   pool_size: 10
 # Configure your database
 config :phoenixMemes, PhoenixMemes.Repo,
-  adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: "",
+  username: "postgres",
+  password: "123456789",
   database: "phoenixmemes_dev",
   hostname: "localhost",
-  pool_size: 10
+  port: "5432"

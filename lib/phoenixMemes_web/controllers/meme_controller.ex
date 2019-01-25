@@ -9,13 +9,25 @@ defmodule PhoenixMemesWeb.MemeController do
   def meme(conn, _params) do
     fetchedMeme = MemeService.fetchRandomMeme()
     
-    IO.inspect(fetchedMeme.memeData)
-    # Repo.insert_all(%{ tag: memeData.data.tags })
+    # IO.inspect(fetchedMeme.memeData)
+    hasTags = length(fetchedMeme.memeData.tags) >= 1
+    ids = if hasTags do
+      tags = for %{"key" => key, "url" => url} <- fetchedMeme.memeData.tags, do: [{:tag, key}], into: []
+      # IO.inspect(tags)
+      {count, ids} = Repo.insert_all("tags", tags, returning: [:id])
+      # IO.inspect(ids)
+      ids
+    end
 
     meme = case Repo.insert(fetchedMeme.memeData.meme)
       do 
         {:ok, meme} -> 
-          IO.puts("success") 
+          IO.puts(meme.id) 
+          if hasTags do
+            memeTags = for %{id: id} <- ids, do: [{:memeId, meme.id}, {:tagId, id}], into: []
+            # IO.inspect(memeTags)
+            Repo.insert_all("memeTags", memeTags)
+          end
           meme
         {:error, changeset} -> 
           IO.puts("failed")
